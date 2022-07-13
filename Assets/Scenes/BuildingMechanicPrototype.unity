@@ -890,9 +890,6 @@ MonoBehaviour:
   mouseInputMask:
     serializedVersion: 2
     m_Bits: 1024
-  buildingPrefab: {fileID: 8829574564184074807, guid: d56c996b37267cb408dd9b10521036b8,
-    type: 3}
-  cellsize: 3
 --- !u!4 &1456789764
 Transform:
   m_ObjectHideFlags: 0
