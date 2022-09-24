@@ -21,17 +21,22 @@ public class GameManager : MonoBehaviour
 
     private PlayerState state;
 
+
+
     public PlayerSelectionState selectionState;
     public PlayerBuildingSingleStructureState buildingSingleStructureState;
-	#endregion
 
-	#region Unity Methods
-	private void Awake()
+    public PlayerState State { get => state; }
+    #endregion
+
+    #region Unity Methods
+    private void Awake()
 	{
         grid = new GridStructure(cellSize, width, length);
         selectionState = new PlayerSelectionState(this, cameraMovement);
         buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, placementManager, grid);
         state = selectionState;
+        state.EnterState();
 	}
 	void Start()
     {
@@ -46,13 +51,6 @@ public class GameManager : MonoBehaviour
         inputManager.AddListenerOnPointerSecondUpEvent(HandleInputCameraStop);
         uiController.AddListenerOnBuildAreaEvent(StartPlacementMode);
         uiController.AddListenerOnCancelActionEvent(CancelAction);
-    }
-
-
-
-	void Update()
-    {
-        
     }
 
     #endregion
