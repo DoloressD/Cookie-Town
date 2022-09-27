@@ -19,17 +19,24 @@ namespace Tests
 		{
             GameObject gameManagerObject = new GameObject();
             var cameraMovement = gameManagerObject.AddComponent<CameraMovement>();
-            gameManagerObject.AddComponent<InputManager>();
+
+            //gameManagerObject.AddComponent<InputManager>();
             uIController = gameManagerObject.AddComponent<UIController>();
+
             GameObject buildButtonObject = new GameObject();
             GameObject cancelButtonObject = new GameObject();
             GameObject cancelPanel = new GameObject();
-            uIController.cancelActionBtn = cancelButtonObject.AddComponent<Button>();
 
+            uIController.cancelActionBtn = cancelButtonObject.AddComponent<Button>();
 
             var buildButtonComponent = buildButtonObject.AddComponent<Button>();
             uIController.buildResidentialAreaBtn = buildButtonComponent;
             uIController.cancelActionPanel = cancelButtonObject;
+
+            uIController.buildingMenuPanel = cancelPanel;
+            uIController.openBuildMenuBtn = uIController.cancelActionBtn;
+            uIController.demolishBtn = uIController.cancelActionBtn;
+
             gameManager = gameManagerObject.AddComponent<GameManager>();
             gameManager.cameraMovement = cameraMovement;
             gameManager.uiController = uIController;

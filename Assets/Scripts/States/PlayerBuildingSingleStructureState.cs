@@ -7,14 +7,11 @@ using UnityEngine;
 
 public class PlayerBuildingSingleStructureState : PlayerState
 {
-	PlacementManager placementManager;
-	GridStructure grid;
-	public PlayerBuildingSingleStructureState(GameManager gameManager,
-											PlacementManager placementManager,
-											GridStructure grid) : base(gameManager)
+	BuildingManager buildingManager;
+	public PlayerBuildingSingleStructureState(GameManager gameManager, BuildingManager buildingManager
+											): base(gameManager)
 	{
-		this.placementManager = placementManager;
-		this.grid = grid;
+		this.buildingManager = buildingManager;
 	}
 	public override void OnInputPanHeld(Vector3 position)
 	{
@@ -28,11 +25,7 @@ public class PlayerBuildingSingleStructureState : PlayerState
 
 	public override void OnInputPointerDown(Vector3 position)
 	{
-		Vector3 gridPosition = grid.CalculateGridPosition(position);
-		if (!grid.IsCellTaken(gridPosition))
-		{
-			placementManager.CreateBuilding(gridPosition, grid);
-		}
+		this.buildingManager.PlaceStructureAt(position);
 	}
 
 	public override void OnInputPointerHeld(Vector3 position)

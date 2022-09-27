@@ -12,30 +12,40 @@ public class UIController : MonoBehaviour
     #region Variables
     private Action OnBuildAreaHandler;
     private Action OnCancelActionHandler;
+    private Action OnDemolishActionHandler;
 
     public Button buildResidentialAreaBtn;
-    public Button cancelActionBtn;
+
+    [Header("Cancel Menu")]
     public GameObject cancelActionPanel;
+    public Button cancelActionBtn;
+
+
+    [Header("Building Mode Menu")]
+    public GameObject buildingMenuPanel;
+    public Button openBuildMenuBtn;
+    public Button demolishBtn;
     #endregion
 
     #region Unity Methods
     void Start()
     {
         cancelActionPanel.SetActive(false);
+        buildingMenuPanel.SetActive(false);
+
         buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
         cancelActionBtn.onClick.AddListener(OnCancelActionCallback);
+        openBuildMenuBtn.onClick.AddListener(OnOpenBuildMenu);
+        demolishBtn.onClick.AddListener(OnDemolishActionCallback);
     }
 
-    void Update()
-    {
-        
-    }
 
-    #endregion
+	#endregion
 
-    private void OnBuildAreaCallback()
+	private void OnBuildAreaCallback()
 	{
         cancelActionPanel.SetActive(true);
+        buildingMenuPanel.SetActive(false);
         OnBuildAreaHandler?.Invoke();
 	}
     private void OnCancelActionCallback()
@@ -43,6 +53,20 @@ public class UIController : MonoBehaviour
         cancelActionPanel.SetActive(false);
         OnCancelActionHandler?.Invoke();
 	}
+
+    private void OnOpenBuildMenu()
+    {
+        buildingMenuPanel.SetActive(true);
+        cancelActionPanel.SetActive(false);
+    }
+
+    private void OnDemolishActionCallback()
+    {
+        cancelActionPanel.SetActive(true);
+        buildingMenuPanel.SetActive(false);
+        OnDemolishActionHandler?.Invoke();
+    }
+
 
     public void AddListenerOnBuildAreaEvent(Action listener)
 	{
@@ -62,5 +86,15 @@ public class UIController : MonoBehaviour
     public void RemoveListenerOnCancelActionEvent(Action listener)
     {
         OnCancelActionHandler -= listener;
+    }
+
+    public void AddListenerOnDemolishlActionEvent(Action listener)
+    {
+        OnDemolishActionHandler += listener;
+    }
+
+    public void RemoveListenerOnDemolishActionEvent(Action listener)
+    {
+        OnDemolishActionHandler -= listener;
     }
 }

@@ -3,6 +3,7 @@
 * http://lacookiefreak.com
 */
 
+using System;
 using UnityEngine;
 
 //this class is to set the cell (grid cell) as taken when placed, to prevent overlap placement
@@ -21,6 +22,17 @@ public class Cell
 		if (structureModel == null)
 			return;
 		this.structureModel = structureModel;
-		this.isTaken = true;
+		isTaken = true;
+	}
+
+	public GameObject GetStructure()
+	{
+		return structureModel;
+	}
+
+	public void RemoveStructure()
+	{
+		structureModel = null;
+		isTaken = false;
 	}
 }
