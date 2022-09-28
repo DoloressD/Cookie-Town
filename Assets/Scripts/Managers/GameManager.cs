@@ -95,15 +95,15 @@ public class GameManager : MonoBehaviour
         state.OnInputPanUp();
     }
 
-    public void TransitionToState(PlayerState newState)
+    public void TransitionToState(PlayerState newState, string variable)
     {
         this.state = newState;
-        this.state.EnterState();
+        this.state.EnterState(variable);
     }
 
-    private void StartPlacementMode()
+    private void StartPlacementMode(string variable)
 	{
-        TransitionToState(buildingSingleStructureState);
+        TransitionToState(buildingSingleStructureState, variable);
 	}
 
     private void CancelAction()
@@ -113,6 +113,6 @@ public class GameManager : MonoBehaviour
 
     private void StartDemolishMode()
     {
-        TransitionToState(demolishState);
+        TransitionToState(demolishState, null);
     }
 }

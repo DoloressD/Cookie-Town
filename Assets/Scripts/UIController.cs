@@ -12,7 +12,9 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     #region Variables
-    private Action OnBuildAreaHandler;
+    private Action<string> OnBuildAreaHandler;
+    private Action<string> OnBuildSingleStructureHandler;
+    private Action<string> OnBuildRoadHandler;
     private Action OnCancelActionHandler;
     private Action OnDemolishActionHandler;
 
@@ -49,18 +51,33 @@ public class UIController : MonoBehaviour
         closeBuildMenuBtn.onClick.AddListener(OnCloseBuildMenuHandler);
     }
 
-
-
-
 	#endregion
 
-	private void OnBuildAreaCallback()
+	private void OnBuildAreaCallback(string structureName)
 	{
-        cancelActionPanel.SetActive(true);
-        OnCloseBuildMenuHandler();
-        OnBuildAreaHandler?.Invoke();
+		BuildUISetup();
+		OnBuildAreaHandler?.Invoke(structureName);
 	}
-    private void OnCancelActionCallback()
+
+    private void OnBuildSingleStructureCallback(string structureName)
+    {
+        BuildUISetup();
+        OnBuildSingleStructureHandler?.Invoke(structureName);
+    }
+
+    private void OnBuildRoadCallback(string structureName)
+    {
+        BuildUISetup();
+        OnBuildRoadHandler?.Invoke(structureName);
+    }
+
+    private void BuildUISetup()
+	{
+		cancelActionPanel.SetActive(true);
+		OnCloseBuildMenuHandler();
+	}
+
+	private void OnCancelActionCallback()
 	{
         cancelActionPanel.SetActive(false);
         OnCancelActionHandler?.Invoke();
@@ -75,12 +92,12 @@ public class UIController : MonoBehaviour
 
     private void SetupBuildMenu()
 	{
-        CreateButtonsInPanel(zonesPanel.transform, structureCollection.GetZoneNames());
-        CreateButtonsInPanel(facilitiesPanel.transform, structureCollection.GetSingleStructureNames());
-        CreateButtonsInPanel(roadsPanel.transform, new List<string>() { structureCollection.GetRoadStructureName() });
+        CreateButtonsInPanel(zonesPanel.transform, structureCollection.GetZoneNames(), OnBuildAreaCallback);
+        CreateButtonsInPanel(facilitiesPanel.transform, structureCollection.GetSingleStructureNames(), OnBuildSingleStructureCallback) ;
+        CreateButtonsInPanel(roadsPanel.transform, new List<string>() { structureCollection.GetRoadStructureName() }, OnBuildRoadCallback);
     }
 
-	private void CreateButtonsInPanel(Transform panelTransform, List<string> data)
+	private void CreateButtonsInPanel(Transform panelTransform, List<string> data, Action<string> callBack)
 	{
         if(data.Count > panelTransform.childCount)
 		{
@@ -97,7 +114,7 @@ public class UIController : MonoBehaviour
             {
                 button.onClick.RemoveAllListeners();
                 button.GetComponentInChildren<TextMeshProUGUI>().text = data[i];
-                button.onClick.AddListener(OnBuildAreaCallback);
+                button.onClick.AddListener(() => callBack(button.GetComponentInChildren<TextMeshProUGUI>().text));
             }
         }
 	}
@@ -115,14 +132,35 @@ public class UIController : MonoBehaviour
     }
 
 
-    public void AddListenerOnBuildAreaEvent(Action listener)
+    public void AddListenerOnBuildAreaEvent(Action<string> listener)
 	{
         OnBuildAreaHandler += listener;
 	}
 
-    public void RemoveListenerOnBuildAreaEvent(Action listener)
+    public void RemoveListenerOnBuildAreaEvent(Action<string> listener)
     {
         OnBuildAreaHandler -= listener;
+    }
+
+
+    public void AddListenerOnBuildSingleStructureEvent(Action<string> listener)
+    {
+        OnBuildSingleStructureHandler += listener;
+    }
+
+    public void RemoveListenerOnBuildSingleStructureEvent(Action<string> listener)
+    {
+        OnBuildSingleStructureHandler -= listener;
+    }
+
+    public void AddListenerOnBuildRoadEvent(Action<string> listener)
+    {
+        OnBuildRoadHandler += listener;
+    }
+
+    public void RemoveListenerOnBuildRoadEvent(Action<string> listener)
+    {
+        OnBuildRoadHandler -= listener;
     }
 
     public void AddListenerOnCancelActionEvent(Action listener)
