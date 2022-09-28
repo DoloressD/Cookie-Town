@@ -15,3 +15,6 @@ Currently the relevent scene is the BuildingMechanicPrototype and the SampleScen
 
 
 Click on the "Build" Button, that will open up the build Menu, once you choose a building type, click on the grid and a block will be placed. Demolish Button allows you to delete the block and there is a cancel button to close the build Menu. Hold right click outside of building mode to pan.
+
+
+### This ReadMe is being edited as the project progresses
