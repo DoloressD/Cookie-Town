@@ -27,7 +27,7 @@ Transform:
   m_LocalPosition: {x: 6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5134509947450443015}
+  - {fileID: 160939199504184477}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38,11 +38,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8986080683829811263}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: a538680b610e13f4aa811c5389ef694b,
-        type: 3}
-      propertyPath: m_Name
-      value: House3
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a538680b610e13f4aa811c5389ef694b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -113,11 +108,20 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b222dd947e165564f8d366038da75483, type: 2}
+    - target: {fileID: -927199367670048503, guid: a538680b610e13f4aa811c5389ef694b,
+        type: 3}
+      propertyPath: m_Name
+      value: House3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: a538680b610e13f4aa811c5389ef694b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b222dd947e165564f8d366038da75483, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a538680b610e13f4aa811c5389ef694b, type: 3}
---- !u!4 &5134509947450443015 stripped
+--- !u!4 &160939199504184477 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: a538680b610e13f4aa811c5389ef694b,
+  m_CorrespondingSourceObject: {fileID: 400000, guid: a538680b610e13f4aa811c5389ef694b,
     type: 3}
   m_PrefabInstance: {fileID: 160939199504576029}
   m_PrefabAsset: {fileID: 0}

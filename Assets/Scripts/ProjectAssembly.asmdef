@@ -1,6 +1,9 @@
 {
     "name": "ProjectAssembly",
-    "references": [],
+    "references": [
+        "ScriptableObjectAssembly",
+        "Unity.TextMeshPro"
+    ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [

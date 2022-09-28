@@ -33,7 +33,7 @@ namespace Tests
             uIController.buildResidentialAreaBtn = buildButtonComponent;
             uIController.cancelActionPanel = cancelButtonObject;
 
-            uIController.buildingMenuPanel = cancelPanel;
+            uIController.buildingModePanel = cancelPanel;
             uIController.openBuildMenuBtn = uIController.cancelActionBtn;
             uIController.demolishBtn = uIController.cancelActionBtn;
 

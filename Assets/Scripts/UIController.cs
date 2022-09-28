@@ -4,8 +4,10 @@
 */
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class UIController : MonoBehaviour
     private Action OnBuildAreaHandler;
     private Action OnCancelActionHandler;
     private Action OnDemolishActionHandler;
+
+    public StructureHolder structureCollection;
 
     public Button buildResidentialAreaBtn;
 
@@ -22,22 +26,30 @@ public class UIController : MonoBehaviour
 
 
     [Header("Building Mode Menu")]
-    public GameObject buildingMenuPanel;
+    public GameObject buildingModePanel;
+    public GameObject zonesPanel;
+    public GameObject facilitiesPanel;
+    public GameObject roadsPanel;
     public Button openBuildMenuBtn;
     public Button demolishBtn;
+    public Button closeBuildMenuBtn;
+    public GameObject buildButtonPrefab;
     #endregion
 
     #region Unity Methods
     void Start()
     {
         cancelActionPanel.SetActive(false);
-        buildingMenuPanel.SetActive(false);
+        buildingModePanel.SetActive(false);
 
-        buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
+        //buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
         cancelActionBtn.onClick.AddListener(OnCancelActionCallback);
         openBuildMenuBtn.onClick.AddListener(OnOpenBuildMenu);
         demolishBtn.onClick.AddListener(OnDemolishActionCallback);
+        closeBuildMenuBtn.onClick.AddListener(OnCloseBuildMenuHandler);
     }
+
+
 
 
 	#endregion
@@ -45,7 +57,7 @@ public class UIController : MonoBehaviour
 	private void OnBuildAreaCallback()
 	{
         cancelActionPanel.SetActive(true);
-        buildingMenuPanel.SetActive(false);
+        OnCloseBuildMenuHandler();
         OnBuildAreaHandler?.Invoke();
 	}
     private void OnCancelActionCallback()
@@ -56,15 +68,50 @@ public class UIController : MonoBehaviour
 
     private void OnOpenBuildMenu()
     {
-        buildingMenuPanel.SetActive(true);
+        buildingModePanel.SetActive(true);
         cancelActionPanel.SetActive(false);
+        SetupBuildMenu();
     }
 
-    private void OnDemolishActionCallback()
+    private void SetupBuildMenu()
+	{
+        CreateButtonsInPanel(zonesPanel.transform, structureCollection.GetZoneNames());
+        CreateButtonsInPanel(facilitiesPanel.transform, structureCollection.GetSingleStructureNames());
+        CreateButtonsInPanel(roadsPanel.transform, new List<string>() { structureCollection.GetRoadStructureName() });
+    }
+
+	private void CreateButtonsInPanel(Transform panelTransform, List<string> data)
+	{
+        if(data.Count > panelTransform.childCount)
+		{
+            int quantityDiff = data.Count - panelTransform.childCount;
+			for (int i = 0; i < quantityDiff; i++)
+			{
+                Instantiate(buildButtonPrefab, panelTransform);
+			}
+		}
+		for (int i = 0; i < panelTransform.childCount; i++)
+		{
+            var button = panelTransform.GetChild(i).GetComponent<Button>();
+            if (button != null)
+            {
+                button.onClick.RemoveAllListeners();
+                button.GetComponentInChildren<TextMeshProUGUI>().text = data[i];
+                button.onClick.AddListener(OnBuildAreaCallback);
+            }
+        }
+	}
+
+	private void OnDemolishActionCallback()
     {
         cancelActionPanel.SetActive(true);
-        buildingMenuPanel.SetActive(false);
+        OnCloseBuildMenuHandler();
         OnDemolishActionHandler?.Invoke();
+    }
+
+    private void OnCloseBuildMenuHandler()
+    {
+        buildingModePanel.SetActive(false);
     }
 
 

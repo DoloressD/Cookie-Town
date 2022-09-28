@@ -1,7 +1,8 @@
 {
     "name": "EditModeTests",
     "references": [
-        "ProjectAssembly"
+        "ProjectAssembly",
+        "ScriptableObjectAssembly"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
